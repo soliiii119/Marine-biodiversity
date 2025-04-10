@@ -25,11 +25,11 @@ def transform(df):
                 df[col] = pd.to_numeric(df[col], errors='coerce')
         
             
-        # Eliminar filas donde ph esté fuera del rango [6, 9]
-        df_filtered = df[(df['ph'] >= 6) & (df['ph'] <= 9)]
+        # Eliminar filas donde ph esté fuera del rango [5, 9]
+        df_filtered = df[(df['ph'] >= 5) & (df['ph'] <= 9)]
         
         if df_filtered.empty:
-            print(" Advertencia: No hay datos con pH entre 6 y 9.")
+            print(" Advertencia: No hay datos con pH entre 5 y 9.")
             return pd.DataFrame()       
              
         print(f" Transformación exitosa: {len(df_filtered)} grupos generados.")
