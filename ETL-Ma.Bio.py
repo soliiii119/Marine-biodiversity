@@ -31,7 +31,14 @@ def transform(df):
         if df_filtered.empty:
             print(" Advertencia: No hay datos con pH entre 5 y 9.")
             return pd.DataFrame()       
-             
+    
+         # Eliminar filas con datos nulos en columnas críticas
+        df_filtered = df_filtered.dropna(subset=['temperature_c', 'salinity_psu', 'ph'])
+       
+        if df_filtered.empty:
+            print(" Advertencia: Todos los datos tienen valores nulos en columnas críticas.")
+            return pd.DataFrame()
+         
         print(f" Transformación exitosa: {len(df_filtered)} grupos generados.")
         return df_filtered
     except Exception as e:
