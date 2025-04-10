@@ -38,9 +38,19 @@ def transform(df):
         if df_filtered.empty:
             print(" Advertencia: Todos los datos tienen valores nulos en columnas críticas.")
             return pd.DataFrame()
+        
+        # Agrupar por especie y calcular la temperatura y salinidad promedio
+        df_grouped = df_filtered.groupby('species').agg({
+            'temperature_c': 'mean',
+            'salinity_psu': 'mean',
+            'ph': 'mean',
+            'station_id': 'count'
+        }).reset_index().rename(columns={'station_id': 'num_registros'})
+
          
-        print(f" Transformación exitosa: {len(df_filtered)} grupos generados.")
-        return df_filtered
+        print(f" Transformación exitosa: {len(df_grouped)} grupos generados.")
+        return df_grouped
+    
     except Exception as e:
         print(f" Error en la transformación: {e}")
         import traceback
